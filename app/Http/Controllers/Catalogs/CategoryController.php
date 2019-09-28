@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Catalogs;
 use App\Core\Eloquent\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -37,9 +37,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         //
+       // Category::create($request->all());
+       // Category::create($request->only(['name','description']));
+       Category::create($request->validated());
+        return redirect()->route('categories.index');
     }
 
     /**
