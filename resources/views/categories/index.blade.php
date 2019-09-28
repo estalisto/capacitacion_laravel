@@ -10,7 +10,12 @@
       <h5 class="card-title">Todas las Categorias</h5>
 
       <a href="{{route('categories.create')}}" class="btn btn-success">CREAR</a>
+      <hr>
+      {!! Form::open(['method'=>'GET','route'=>'categories.index'])!!}
+          {!! Form::text('filter',request()->get('filter'),['class'=>'form-control col-lg-4','placeholder'=>'Buscar Categorias'])!!}
 
+      {!! Form::close()!!}
+      <hr>
       <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -25,9 +30,17 @@
     @forelse ($categorias as $categoria)
       <tr>
       <th scope="row">{{$categoria->id}}</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td>{{$categoria->name}}</td>
+        <td>{{$categoria->slug}}</td>
+        <td>{{$categoria->description}}</td>
+        <td>
+        <a href="{{route('categories.edit',$categoria)}}">EDITAR</a>
+          |
+       
+       
+
+        
+           </td>
       </tr>
     @empty
     <tr>

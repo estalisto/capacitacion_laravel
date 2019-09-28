@@ -2,10 +2,11 @@
 
 namespace App\Core\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Model,SoftDeletes};
 use Str;
 class Category extends Model
 {
+    use SoftDeletes;
  protected $table = 'categories';
  //protected $connection='pgsql';
  protected $fillable=['name','description'];
@@ -20,6 +21,14 @@ class Category extends Model
      });
 
      parent::boot();
+ }
+//asesor extraer
+ public function getNameAttribute($value){
+    //return $value.' proceso';
+    return Str::upper($value);
+ }
+ public function setNameAttribute($value){
+    $this->attributes['name']=Str::upper($value);
  }
 
 }
